@@ -1,0 +1,62 @@
+version: "3.9"
+
+networks:
+  custom-network:
+    external:
+      name: mynetwork
+
+services:
+  eureka-service:
+    image: tk1207/eureka-server
+    container_name: eureka-server-container
+    restart: always
+    ports:
+      - 8761:8761
+    networks:
+      - custom-network
+
+  user-service:
+    image: tk1207/user-service
+    container_name: user-service-container
+    restart: always
+    ports:
+      - 9797:9797
+    networks: 
+      - custom-network
+
+  ebsconnection-service:
+    image: tk1207/ebsconnection-service
+    container_name: ebsconnection-service-container
+    restart: always
+    ports:  
+      - 9595:9595
+    networks:
+      - custom-network
+
+  payment-service:
+    image: tk1207/payment-service
+    container_name: payment-service-container
+    restart: always
+    ports: 
+      - 9696:9696
+    networks: 
+      - custom-network
+
+  bill-service:
+    image: tk1207/bill-service
+    container_name: bill-service-container
+    restart: always
+    ports: 
+      - 9898:9898
+    networks: 
+      - custom-network
+
+  mysql-service:
+    image: mysql:8
+    container_name: mysql-container
+    restart: always
+    environment: 
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=sprint1_ebs_db
+    networks:
+      -  custom-network

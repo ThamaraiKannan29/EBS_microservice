@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bill-service-deployment
+  #namespace: my-name-space
+  labels:
+    app: bill-service-app
+   
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bill-service-app
+     
+  template:
+    metadata:
+      labels:
+        app: bill-service-app   
+    spec:
+      containers:
+      - name: bill-service-app-pod
+        image: tk1207/bill-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9898

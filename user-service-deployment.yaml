@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-deployment
+  #namespace: my-name-space
+  labels:
+    app: user-service-app
+   
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service-app
+     
+  template:
+    metadata:
+      labels:
+        app: user-service-app   
+    spec:
+      containers:
+      - name: user-service-app-pod
+        image: tk1207/user-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9797

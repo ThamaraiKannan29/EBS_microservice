@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ebsconnection-service-deployment
+  #namespace: my-name-space
+  labels:
+    app: ebsconnection-service-app
+   
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ebsconnection-service-app
+     
+  template:
+    metadata:
+      labels:
+        app: ebsconnection-service-app   
+    spec:
+      containers:
+      - name: ebsconnection-service-app-pod
+        image: tk1207/ebsconnection-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9595
